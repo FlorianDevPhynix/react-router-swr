@@ -1,7 +1,6 @@
 {
   "name": "monorepo",
   "version": "1.0.0",
-  "description": "",
   "author": "Florian Stemmler",
   "license": "MIT",
   "workspace": [

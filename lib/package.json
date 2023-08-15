@@ -21,8 +21,8 @@
   },
   "files": [
     "dist",
-    "LICENSE",
-    "README.md"
+    "../LICENSE.md",
+    "../README.md"
   ],
   "scripts": {
     "build": "vite build",
