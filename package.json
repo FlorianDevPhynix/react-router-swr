@@ -1,0 +1,16 @@
+{
+  "name": "monorepo",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Florian Stemmler",
+  "license": "MIT",
+  "workspace": [
+    "lib/",
+    "app/"
+  ],
+  "private": true,
+  "devDependencies": {
+    "typescript": "^5.0.2",
+    "prettier": "^2.8.8"
+  }
+}
