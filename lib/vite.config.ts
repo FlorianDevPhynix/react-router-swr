@@ -1,17 +1,20 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
+import react from '@vitejs/plugin-react';
+import dts from 'vite-plugin-dts';
+
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [],
+	plugins: [react(), dts({ rollupTypes: true })],
 	build: {
 		sourcemap: true,
 		lib: {
 			// Could also be a dictionary or array of multiple entry points
-			entry: resolve(__dirname, 'src/index.tsx'),
+			entry: resolve(__dirname, 'src/index.ts'),
 			name: 'react-router-swr',
-			// the proper extensions will be added
-			fileName: 'react-router-swr',
+			formats: ['es', 'cjs', 'umd'],
+			fileName: 'index',
 		},
 		rollupOptions: {
 			// make sure to externalize deps that shouldn't be bundled
