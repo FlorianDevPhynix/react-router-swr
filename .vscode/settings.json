@@ -1,5 +1,9 @@
 {
+    "files.eol": "\n",
 	"editor.formatOnSave": true,
+	"editor.tabSize": 2,
+	"editor.indentSize": "tabSize",
+    //"editor.formatOnType": true,
 	"eslint.workingDirectories": [
         "./lib",
         "./app"
