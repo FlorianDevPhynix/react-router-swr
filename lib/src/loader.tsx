@@ -15,7 +15,34 @@ export type LoaderFunction<Data> = (
 	args: LoaderFunctionArgs
 ) => Promise<Data | undefined | void> | Data | undefined | void;
 
-// useLoaderData
+/**
+ * Infer the data type of a loader function.
+ *
+ * @example
+ * ```
+ * import type { LoaderFunction, LoaderDataType } from 'react-router-swr';
+ *
+ * export const loader: LoaderFunction<number> = async (args) => {
+ * 	try {
+ * 		const result = await (await fetch('/api/state')).json();
+ * 		return result.state as number;
+ * 	} catch (error) {
+ * 		redirect('error?code=400&message=failed to fetch state', 307);
+ * 	}
+ * };
+ *
+ * export default function DataComponent() {
+ * 	const count = useLoaderData() as LoaderDataType<typeof loader>;
+ *
+ * 	return (
+ * 		<>
+ * 			<h1>Data Component</h1>
+ * 			<p>Count: {count ?? 0}</p>
+ * 		</>
+ * 	);
+ * }
+ * ```
+ */
 export type LoaderDataType<
 	T extends LoaderFunction<unknown>,
 	R = Exclude<ReturnType<T>, Promise<ReturnType<T>>>,
@@ -23,6 +50,8 @@ export type LoaderDataType<
 
 /**
  * Typesafe loader data hook for React Router.
+ *
+ * @experimental Does not work right now! Use {@link LoaderDataType} instead.
  *
  * @throws if the loader was never registered or failed.
  *
@@ -32,7 +61,7 @@ export type LoaderDataType<
  *
  * Only use if you ensured that the loader is registered to the current route.
  *
- * If the loader fails, you also should either use [errorElements](https://reactrouter.com/en/main/route/error-element)
+ * If the loader fails, you should either use [errorElements](https://reactrouter.com/en/main/route/error-element)
  * or [redirect](https://reactrouter.com/en/main/fetch/redirect) to an error page.
  *
  * @example
@@ -50,11 +79,11 @@ export type LoaderDataType<
  * }
  *
  * export default DataComponent() {
- *     const state = useLoaderData<typeof loader>();
+ *     const count = useLoaderData<typeof loader>();
  *
  *     return ( <>
- *         <h1>Data Component>
- *         <p>{state}</p>
+ *         <h1>Data Component</h1>
+ *         <p>Count: {count}</p>
  *     </> )
  * }
  * ```
@@ -108,9 +137,28 @@ export type SWRData<Data = any, SWRKey extends Key = Key> = {
 };
 
 /**
- * @param key
- * @param fetcher
- * @returns
+ * Share a single data loading function between React Router and SWR.
+ *
+ * @param key - The static key to be used with SWR and all requests.
+ * @param fetcher - Function to load data in a React Router route loader and SWR.
+ * @returns A object with the React Router loader function and data for {@link useLoaderSWR}.
+ *
+ * @example
+ * ```
+ * import { makeLoader } from 'react-router-swr';
+ *
+ * const { loader, swrData } = makeLoader('/api/state', async (args) => {
+ *  try {
+ * 		const result = await (await fetch(args.key)).json();
+ * 		return result.state as number;
+ * 	} catch (error) {
+ * 		redirect('error?code=400&message=failed to fetch state', 307);
+ * 	}
+ * 	return 0;
+ * });
+ *
+ * export { loader };
+ * ```
  */
 export function makeLoader<
 	Data = any,
@@ -169,6 +217,36 @@ export interface SWRLoaderResponse<Data = any, Error = any, Config = any>
 	data: BlockingData<Data, Config> extends true ? Data : Data | undefined;
 }
 
+/**
+ * Use the data function passed to {@link makeLoader} with SWR.
+ *
+ * @param swrData - The data object being returned by {@link makeLoader}. Is used to infer the key and data types.
+ * @param config - {@link https://swr.vercel.app/docs/options | SWRConfiguration}
+ * @returns {} {@link https://swr.vercel.app/docs/api#return-values | SWRResponse}
+ *
+ * @throws if the loader was never registered or failed.
+ *
+ * # Warning!
+ *
+ * Only use if you ensured that the used loader is registered to the current route.
+ *
+ * If the loader fails, you should either use [errorElements](https://reactrouter.com/en/main/route/error-element)
+ * or [redirect](https://reactrouter.com/en/main/fetch/redirect) to an error page.
+ *
+ * @example
+ * ```
+ * import { useLoaderSWR } from 'react-router-swr';
+ *
+ * export default function DataComponent() {
+ *	const { count } = useLoaderSWR(swrData, { keepPreviousData: true });
+ *
+ *	return ( <>
+ * 		<h1>Data Component</h1>
+ * 		<p>Count: {count}</p>
+ *	</> );
+ * }
+ * ```
+ */
 export function useLoaderSWR<
 	Data = any,
 	Error = any,
