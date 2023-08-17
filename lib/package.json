@@ -7,7 +7,7 @@
   "author": "Florian Stemmler",
   "repository": {
     "type": "git",
-    "url": "https://github.com/"
+    "url": "https://github.com/FlorianDevPhynix/react-router-swr"
   },
   "types": "dist/index.d.ts",
   "main": "dist/index.js",

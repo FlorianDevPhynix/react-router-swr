@@ -66,9 +66,6 @@ importers:
       sass:
         specifier: ^1.64.2
         version: 1.64.2
-      typescript:
-        specifier: ^5.0.2
-        version: 5.0.2
       vite:
         specifier: ^4.4.5
         version: 4.4.5(@types/node@20.4.9)(sass@1.64.2)

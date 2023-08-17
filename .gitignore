@@ -1,3 +1,6 @@
+# github actions test tool - act - artifacts
+act-artifacts/
+
 # Dependencies
 node_modules
 
