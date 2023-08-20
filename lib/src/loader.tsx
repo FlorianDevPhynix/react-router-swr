@@ -143,6 +143,15 @@ export type SWRData<Data = any, SWRKey extends Key = Key> = {
  * @param fetcher - Function to load data in a React Router route loader and SWR.
  * @returns A object with the React Router loader function and data for {@link useLoaderSWR}.
  *
+ * @throws if the loader was never registered or failed.
+ *
+ * # Warning!
+ *
+ * Only use if you ensured that the loader is registered to the current route.
+ *
+ * If the loader fails, you should either use [errorElements](https://reactrouter.com/en/main/route/error-element)
+ * or [redirect](https://reactrouter.com/en/main/fetch/redirect) to an error page.
+ *
  * @example
  * ```
  * import { makeLoader } from 'react-router-swr';

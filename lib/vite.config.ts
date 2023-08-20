@@ -13,7 +13,7 @@ export default defineConfig({
 			// Could also be a dictionary or array of multiple entry points
 			entry: resolve(__dirname, 'src/index.ts'),
 			name: 'react-router-swr',
-			formats: ['es', 'cjs', 'umd'],
+			formats: ['es', 'cjs'],
 			fileName: 'index',
 		},
 		rollupOptions: {
