@@ -1,0 +1,11 @@
+name: Full install
+description: install Node.js, pnpm, init pnpm cache & pnpm install
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup
+      uses: ./.github/actions/setup
+
+    - name: Install
+      uses: ./.github/actions/install

@@ -1,0 +1,19 @@
+name: Setup
+description: install Node.js & pnpm
+
+# https://github.com/vercel/swr/blob/main/.github/workflows/install/action.yml
+# https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md
+runs:
+  using: "composite"
+  steps:
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      id: pnpm-install
+      with:
+        version: 8
+        run_install: false

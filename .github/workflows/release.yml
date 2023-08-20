@@ -1,0 +1,119 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup
+        uses: ./.github/actions/full-setup
+
+      - name: Run Vitest
+        run: cd ./lib && pnpm test
+  
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup
+        uses: ./.github/actions/full-setup
+
+      - name: Run lint
+        run: cd ./lib && pnpm run lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    needs: [check]
+    steps:
+      - name: Security Setup
+        uses: step-security/harden-runner@8ca2b8b2ece13480cda6dacd3511b49857a23c09 # v2.5.1
+        with:
+          egress-policy: block
+          disable-sudo: true
+          allowed-endpoints: >
+            github.com:443
+            api.github.com:443
+            nodejs.org:443
+            registry.npmjs.org:443
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup
+        uses: ./.github/actions/full-setup
+
+      - name: Build
+        run: cd ./lib && pnpm build
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: lib/dist/
+      
+      - name: Prepare Package
+        run: |
+          mv README.md lib/
+          mv LICENSE.md lib/
+          mv CHANGELOG.md lib/
+      
+      - name: Package build output
+        run: cd ./lib && pnpm pack
+
+      - name: Upload Package
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-package
+          path: lib/react-router-swr-*.tgz
+
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    needs: build
+    permissions:
+      contents: write
+    environment: Release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            .github
+            lib
+      
+      - uses: actions/download-artifact@v3
+        with:
+          name: build-package
+          path: lib/
+
+      - name: Setup
+        uses: ./.github/actions/setup
+      
+      - name: Add .npmrc for Publish
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ./lib/.npmrc
+      
+      - name: NPM Publish
+        run: cd lib/ && pnpm publish react-router-swr-*.tgz --ignore-scripts
+      
+      - name: Release Package
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          body_path: CHANGELOG.md
+          files: lib/react-router-swr-*.tgz
