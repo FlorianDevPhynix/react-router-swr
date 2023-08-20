@@ -2,7 +2,14 @@
   "name": "react-router-swr",
   "version": "0.0.1",
   "description": "Integration of React-Router's loader functionality with SWR",
-  "keywords": [],
+  "keywords": [
+    "react",
+    "router",
+    "route",
+    "routing",
+    "swr",
+    "hooks"
+  ],
   "license": "MIT",
   "author": "Florian Stemmler",
   "repository": {
@@ -21,20 +28,19 @@
   },
   "files": [
     "dist/*",
-    "../LICENSE.md",
-    "../README.md"
+    "LICENSE.md",
+    "README.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "vite build",
-    "lint": "eslint ./src --ext ts,tsx && npm run check",
+    "lint": "eslint ./src --ext ts,tsx && pnpm run check",
     "check": "tsc --noEmit",
     "format": "prettier --config ../.prettierrc --write ./src",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
     "release": "pnpm run build && esno scripts/bump.ts && bumpp --no-push"
-    "prepublishOnly": "npm run build",
-    "publish": "npm publish"
   },
   "peerDependencies": {
     "react": "^18.2.0",
