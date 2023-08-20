@@ -1,6 +1,5 @@
 {
   "name": "monorepo",
-  "version": "1.0.0",
   "author": "Florian Stemmler",
   "license": "MIT",
   "workspace": [
@@ -9,7 +8,11 @@
   ],
   "private": true,
   "devDependencies": {
-    "typescript": "^5.0.2",
-    "prettier": "^2.8.8"
+    "prettier": "^3.0.2",
+    "typescript": "^5.0.2"
+  },
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=8"
   }
 }

@@ -1,3 +1,9 @@
+# github actions test tool - act - artifacts
+run-act.bat
+act-artifacts/
+# CI/CD
+.npmrc
+
 # Dependencies
 node_modules
 

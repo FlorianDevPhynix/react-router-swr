@@ -1,17 +1,17 @@
 {
   "name": "react-router-swr",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Integration of React-Router's loader functionality with SWR",
   "keywords": [],
   "license": "MIT",
   "author": "Florian Stemmler",
   "repository": {
     "type": "git",
-    "url": "https://github.com/"
+    "url": "https://github.com/FlorianDevPhynix/react-router-swr"
   },
+  "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -20,30 +20,32 @@
     }
   },
   "files": [
-    "dist",
+    "dist/*",
     "../LICENSE.md",
     "../README.md"
   ],
   "scripts": {
     "build": "vite build",
-    "lint": "eslint ./src --ext ts,tsx && npm run type-check",
-    "type-check": "tsc --noEmit",
-    "format": "prettier --write ./src",
+    "lint": "eslint ./src --ext ts,tsx && npm run check",
+    "check": "tsc --noEmit",
+    "format": "prettier --config ../.prettierrc --write ./src",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
-    "release": "bumpp --commit --tag --push",
+    "release": "pnpm run build && esno scripts/bump.ts && bumpp --no-push"
     "prepublishOnly": "npm run build",
     "publish": "npm publish"
   },
   "peerDependencies": {
+    "react": "^18.2.0",
     "react-router": "^6.4.0",
     "react-router-dom": "^6.4.0",
     "swr": "^2.0.1"
   },
   "dependencies": {
-    "react-router": "^6.14.2",
-    "react-router-dom": "^6.14.2",
+    "react": "^18.2.0",
+    "react-router": "^6.4.0",
+    "react-router-dom": "^6.4.0",
     "swr": "^2.0.1"
   },
   "devDependencies": {
@@ -51,6 +53,7 @@
     "@types/react": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
     "@vitest/ui": "^0.34.1",
     "bumpp": "^9.1.0",
     "eslint": "^8.45.0",
@@ -58,8 +61,10 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "react": "^18.2.0",
+    "eslint-plugin-tsdoc": "^0.2.17",
     "vite": "^4.4.5",
-    "vitest": "^0.31.4"
+    "vite-plugin-dts": "^3.5.2",
+    "vitest": "^0.31.4",
+    "esno": "^0.16.3"
   }
 }
