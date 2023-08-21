@@ -1,6 +1,6 @@
 {
   "name": "react-router-swr",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Integration of React-Router's loader functionality with SWR",
   "keywords": [
     "react",
