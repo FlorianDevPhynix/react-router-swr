@@ -8,14 +8,26 @@ updates:
   - package-ecosystem: npm
     directory: /app
     schedule:
-      interval: daily
+      interval: weekly
+    target-branch: "dev"
+    commit-message:
+      prefix: "[app] "
 
   - package-ecosystem: npm
     directory: /lib
     schedule:
       interval: daily
+    commit-message:
+      prefix: "[lib] "
+    allow:
+      - dependency-type: development
+    ignore:
+      - dependency-name: "@types/node"
+      - dependency-name: "@types/react"
 
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: daily
+    ignore:
+      - dependency-name: "typescript"
