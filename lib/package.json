@@ -68,7 +68,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-tsdoc": "^0.2.17",
-    "vite": "^4.4.5",
+    "vite": "^5.0.6",
     "vite-plugin-dts": "^3.5.2",
     "vitest": "^0.31.4",
     "esno": "^0.16.3"
