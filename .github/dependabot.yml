@@ -10,26 +10,30 @@ updates:
     schedule:
       interval: weekly
     target-branch: dev
-    commit-message:
-      prefix: "[app] "
+    labels:
+      - "app"
 
   - package-ecosystem: npm
     directory: /lib
     schedule:
       interval: daily
-    commit-message:
-      prefix: "[lib] "
+    labels:
+      - "lib"
     allow:
       - dependency-type: development
     ignore:
-      - dependency-name: '@types/node'
-      - dependency-name: '@types/react'
-
-  - package-ecosystem: npm
-    directory: /
-    schedule:
-      interval: weekly
-    allow:
-      - dependency-name: prettier
-    ignore:
+      - dependency-name: "@types/node"
+      - dependency-name: "@types/react"
       - dependency-name: typescript
+    groups:
+      vite:
+        patterns:
+          - "vite*"
+        exclude-patterns:
+          - "*plugin-react*"
+      vitest:
+        patterns:
+          - "*vitest*"
+      eslint:
+        patterns:
+          - "*eslint*"
