@@ -7,10 +7,6 @@
     "app/"
   ],
   "private": true,
-  "devDependencies": {
-    "prettier": "^3.0.2",
-    "typescript": "^5.0.2"
-  },
   "engines": {
     "node": ">=16",
     "pnpm": ">=8"
