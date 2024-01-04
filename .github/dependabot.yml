@@ -12,6 +12,7 @@ updates:
     target-branch: dev
     labels:
       - "app"
+      - "dependencies"
 
   - package-ecosystem: npm
     directory: /lib
@@ -19,6 +20,7 @@ updates:
       interval: daily
     labels:
       - "lib"
+      - "dependencies"
     allow:
       - dependency-type: development
     ignore:
