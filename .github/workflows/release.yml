@@ -61,7 +61,7 @@ jobs:
         run: cd ./lib && pnpm build
 
       - name: Upload build output
-        uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4.0.0
+        uses: actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595 # v4.1.0
         with:
           name: build-output
           path: lib/dist/
@@ -76,7 +76,7 @@ jobs:
         run: cd ./lib && pnpm pack
 
       - name: Upload Package
-        uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4.0.0
+        uses: actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595 # v4.1.0
         with:
           name: build-package
           path: lib/react-router-swr-*.tgz
