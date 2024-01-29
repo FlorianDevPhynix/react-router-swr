@@ -60,7 +60,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
-    "@vitest/ui": "^0.34.1",
+    "@vitest/ui": "^1.2.2",
     "bumpp": "^9.1.0",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "9.0.0",
